@@ -293,7 +293,7 @@ I've already mentioned it once, but it's worth repeating. Part of the value of J
 
 4. The AVR 'CustomersController` controller
 
-The final piece is the AVR controller. It's `Add` method is the target to which the from step #3 submits Json data. That controller code is shown below. 
+The final piece is the AVR controller. Its `Add` method is the target to which the from step #3 submits Json data. That controller code is shown below. 
 
     BegClass CustomersController Access(*Public) + 
                                  Extends(ASNA.JsonRestRouting.Controller)
@@ -325,7 +325,7 @@ A Json string is fetched from the `GetRequestContent` method and the [NewtonSoft
 
 You can also see in the `Add` method how easy it is to fetch header values. 
     
-The `CustomersController` must extend `ASNA.JsonRestRouting.Controller`. Public methods in this controller always return the result converted to Json. In this case, a small class named `ResponseInfo` is instanced and returned. It's code is shown below. 
+The `CustomersController` must extend `ASNA.JsonRestRouting.Controller`. Public methods in this controller always return the result converted to Json. In this case, a small class named `ResponseInfo` is instanced and returned. Its code is shown below. 
 
     BegClass ResponseInfo Access(*Public)
         DclProp InfoMessage Type(*String) Access(*Public) 
