@@ -1,0 +1,28 @@
+﻿
+BegClass CustomersController Access(*Public) Extends(ASNA.JsonRestRouting.Controller)
+
+    BegFunc Add Access(*Public) Type(ResponseInfo) 
+        DclFld ri Type(ResponseInfo) New()
+        DclFld Customer Type(CustomerEntity) 
+        DclFld headerValueX Type(*String) 
+        DclFld headerValueY Type(*String) 
+        DclFld Json Type(*String) 
+
+        // Get incoming Json as a string.        
+        Json = *Base.GetRequestContent()
+        // Use Json.NET to hydrate the incoming Json. The Json schema of the incoming data must exactly, including case, 
+        // match that of the target object schema. 
+        Customer = NewtonSoft.Json.JsonConvert.DeserializeObject(Json, *TypeOf(CustomerEntity)) *As CustomerEntity
+        
+        // Get header values.
+        headerValueX = *This.Http.Request.Headers['x-custom-header'].ToString()
+        headerValueY = *This.Http.Request.Headers['y-custom-header'].ToString()
+
+        // Set return message.
+        ri.InfoMessage = 'Data correctly received in the CustomersController'
+
+        // Return ResponseInfo instance. This will be automatically be tranformed to Json. 
+        LeaveSr ri 
+    EndFunc 
+
+EndClass 

@@ -1,0 +1,12 @@
+﻿BegClass CustomerEntity Access(*Public)
+    DclProp CMCustNo    Type(*Integer4) Access(*Public)
+    DclProp CMName      Type(*String) Access(*Public)
+    DclProp CMAddr1     Type(*String) Access(*Public)
+    DclProp CMCity      Type(*String) Access(*Public)
+    DclProp CMState     Type(*String) Access(*Public)
+    DclProp CMCntry     Type(*String) Access(*Public)
+    DclProp CMPostCode  Type(*String) Access(*Public)
+    DclProp CMActive    Type(*String) Access(*Public)
+    DclProp CMFax       Type(*Packed) Len(12,0) Access(*Public)
+    DclProp CMPhone     Type(*String) Access(*Public)
+EndClass

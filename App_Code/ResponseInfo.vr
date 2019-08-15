@@ -1,0 +1,5 @@
+﻿// This class is a standard response info class used to return application
+// info back to the client. Axios
+BegClass ResponseInfo Access(*Public)
+    DclProp InfoMessage Type(*String) Access(*Public) 
+EndClass
