@@ -403,3 +403,17 @@ the newCustomer object looks like this:
 }
 
 Converting the object on the client side requires a valid name conversion object (ie, `newCustomerFields`, but this technique is easily reusable and lets you keep automatic type conversions (thanks to Json.NET) intact in the AVR code. 
+
+### Seeing the results
+
+Launch the app from inside Visual Studio setting `PostJson.aspx` as the start page. When the page appears, open the browser's dev tools and select the 'console' tab. 
+
+When you click the `Post Json` link, you should see the message 
+
+    Data correctly received in the CustomersController
+
+as shown below. 
+
+![](https://asna.com/filebin/marketing/article-figures/console-json-app.png)
+
+Also, try setting a breakpoint in the CustomersController's `Add` method. Click the `Post Json` link again and the debugger should stop on your breakpoint. 
