@@ -13,7 +13,11 @@ BegClass CustomersController Access(*Public) Extends(ASNA.JsonRestRouting.Contro
         // Use Json.NET to hydrate the incoming Json. The Json schema of the incoming data must exactly, including case, 
         // match that of the target object schema. 
         Customer = NewtonSoft.Json.JsonConvert.DeserializeObject(Json, *TypeOf(CustomerEntity)) *As CustomerEntity
-        
+
+        // Although there isn't any add-record logic present here, the intent of this 
+        // method would be add a Customer record to the database. That would be done here 
+        // after hydrating the Customer object. 
+                
         // Get header values.
         headerValueX = *This.Http.Request.Headers['x-custom-header'].ToString()
         headerValueY = *This.Http.Request.Headers['y-custom-header'].ToString()

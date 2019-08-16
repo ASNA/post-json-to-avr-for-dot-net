@@ -1,5 +1,5 @@
 ﻿
-This example shows how to POST Json data to a controller class in an AVR for .NET Web app. The typical use case for this would be posting data to the server from a browser with Ajax or from a server-side process in an app (which may or may not be AVR) hosted on another domain. 
+This example shows how to POST Json data to a controller class in an AVR for .NET Web app. The typical use case for this would be posting data to the server from a browser with Ajax or from a server-side process in an app (which may or may not be AVR) hosted on another domain.
 
 In this example, a POST request needs to be made posting the data to populate a customer record. This request will be made to the `api/customers` route.
 
@@ -120,7 +120,7 @@ where the Client class's `charges` field is an array of `Charges` instances and 
 
 > Speaking of the real world, the field names in the example above are a potential problem. IBM i database field names are limited to 10 characters. When working with AVR and Json, it's best to use Json structures that limit field names to 10 characters. However, that isn't always possible so you may need to write some code to manually populate AVR classes from the incoming Json data. More on this later.
 
-#### 2. ASP.NET routing 
+### 2. ASP.NET routing 
 
 Microsoft's ASP.NET routing engine is used to route requests to the propery RESTful route ([read more about using that engine with AVR here](https://asna.com/us/tech/kb/doc/asp-net-routing)). RESTful routing is defined in the ASP.NET project's `global.asax` file.
 
@@ -154,7 +154,7 @@ The `RegisterRoutes` method is called when the application starts (that isn't on
 
 In this example, the route `api/customers` for an HTTP POST is mapped to the `Add` method of the `CustomersController` class. When data is POSTed to the `api/customers` route the posted data is available in the `Add` method. Using `Post()` method is what determines what HTTP verb is associated with this route. There are corresponding methods available for the GET, PUT, PATCH, and DELETE verbs. 
 
-3. JavaScript to submit a POST request
+### 3. JavaScript to submit a POST request
 
 The JavaScript to submit POST data is in the `postjson.aspx.js` file. It also includes a little JavaScript to wire up a `click` event handler for an anchor tag for testing purposes. 
 
@@ -291,7 +291,7 @@ If some would agree the second way is clearer, why even bother with the first wa
 
 I've already mentioned it once, but it's worth repeating. Part of the value of JavaScript promises is friction they remove from asynchronous operations. The code above makes it look like the promise's `then` method is called immediately after the `post` method is called. It's not. The promise "wakes up" and calls its `then` method when the post operation completes.
 
-4. The AVR 'CustomersController` controller
+### 4. The AVR 'CustomersController` controller
 
 The final piece is the AVR controller. Its `Add` method is the target to which the from step #3 submits Json data. That controller code is shown below. 
 
@@ -337,7 +337,7 @@ This class has a single property that provides messaging the caller (in Json for
 
 <small>A screen shot of the data as received in the controller's `Add` method</small>
 
-#### Dealing with Json objects with field names that don't match your field names
+### Dealing with Json objects with field names that don't match your field names
 
 The code below shows an alternative method of fetching the Json data. You might use this technique if the Json data element names don't exactly match those in the target AVR object. Beware, though, that you're responsible for converting all data types to the appropriately target data types with this method (ie. you can't rely on Json.NET's implicit type conversion). 
 
@@ -416,4 +416,33 @@ as shown below.
 
 ![](https://asna.com/filebin/marketing/article-figures/console-json-app.png)
 
-Also, try setting a breakpoint in the CustomersController's `Add` method. Click the `Post Json` link again and the debugger should stop on your breakpoint. 
+Also, try setting a breakpoint in the CustomersController's `Add` method. Click the `Post Json` link again and the debugger should stop on your breakpoint.
+
+### REST routing/controller action conventions
+
+This example uses an `Add` method to receive the POSTed customer data. The choice for that name isn't abitrary. There are established conventions to follow defining RESTful routes. 
+
+With influences from [early MVC work](http://heim.ifi.uio.no/~trygver/themes/mvc/mvc-index.html), [Roy Fielding's REST-defining dissertation](https://www.ics.uci.edu/~fielding/pubs/dissertation/fielding_dissertation.pdf), and [Ruby on Rail's MVC implementation](https://www.sitepoint.com/model-view-controller-mvc-architecture-rails/), among others, a ubiquitious set of RESTful conventions has evolved. Minor variations of these conventions are present in many popular Web development frameworks today (including Vue.js, React, Express, Sinatra, Laravel, Symfony, Flask, Spring, Rails, and ASP.NET MVC). 
+
+RESTful route conventions for working with a customer resource:
+
+| Verb   | Path                | Action name   | Purpose                                  |
+|:-------|:--------------------|---------------|:-----------------------------------------|
+| GET    | /customer           | index         | Show a (possibly filtered) list of customers) |
+| GET    | /customer/create    | new or create | Display a create-customer form with empty inputs read for the user to create a new row |
+| POST   | /customer           | store or add  | Given necessary inputs, create a new customer row |
+| GET    | /customer/{id}      | show          | Given a unique customer id fetch a customer record |
+| GET    | /customer/{id}/edit | edit          | Given a unique customer id, display an edit-customer form for the user to change |
+| PUT    | /photo/{id}         | update        | Given a unique customer id, update an existing customer row |
+| DELETE | /photo/{id}         | delete        | Given a unique customer id, delete an existing customer row |
+
+> PUT and DELETE are valid HTTP verbs and can be used with JavaScript and Ajax. However, HTML form actions can only be GET or POST. Therefore, when using HTML forms the rules need to be bent a little. Or, some frameworks provide the ability to spoof the verb. That is, although a GET or a POST has to be used to submit the form, a special-cased hidden HTML value designates the HTTP verb to be seen by the server. For example, read here how the [Laravel framework spoofs the HTTP verb](https://laravel.com/docs/5.0/routing#method-spoofing).
+
+Further reading on RESTful routes: 
+
+* [A good article on REST naming conventions](https://restfulapi.net/resource-naming/)
+
+* [How Sinatra defines RESTful routes](https://learn.co/lessons/sinatra-restful-routes-readme)
+
+* [How ASP.NET defines RESTful routes](
+http://restfulrouting.com/#introduction)
