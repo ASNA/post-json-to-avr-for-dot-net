@@ -150,7 +150,7 @@ Microsoft's ASP.NET routing engine is used to route requests to the propery REST
           
     </script>
 
-The `RegisterRoutes` method is called when the application starts (that isn't once for every user--routes are defined when the first user logs on). RESTful Json routes are registered with AVR using the ASNA.JsonRestRouting.Route class. (To use this class you'll need to include and set a reference to the ASNA.JsonRestRouting DLL). 
+The `RegisterRoutes` method is called when the application starts (that isn't once for every user--routes are defined when the first user logs on). RESTful Json routes are registered with AVR using the 'ASNA.JsonRestRouting.Route' class. (To use this class you'll need to include and set a reference to the ASNA.JsonRestRouting DLL). 
 
 In this example, the route `api/customers` for an HTTP POST is mapped to the `Add` method of the `CustomersController` class. When data is POSTed to the `api/customers` route the posted data is available in the `Add` method. Using `Post()` method is what determines what HTTP verb is associated with this route. There are corresponding methods available for the GET, PUT, PATCH, and DELETE verbs. 
 
