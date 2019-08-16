@@ -427,7 +427,7 @@ With influences from [early MVC work](http://heim.ifi.uio.no/~trygver/themes/mvc
 RESTful route conventions for working with a customer resource:
 
 | Verb   | Path                | Action name   | Purpose                                  |
-|:-------|:--------------------|---------------|:-----------------------------------------|
+|:-------|:--------------------|:---------------|:-----------------------------------------|
 | GET    | /customer           | index         | Show a (possibly filtered) list of customers) |
 | GET    | /customer/create    | new or create | Display a create-customer form with empty inputs read for the user to create a new row |
 | POST   | /customer           | store or add  | Given necessary inputs, create a new customer row |
